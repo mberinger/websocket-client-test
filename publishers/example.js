@@ -4,8 +4,8 @@ var publisher = require('./publisher.js');
 // Set up publisher here
 
 // Call function with fetcher as parameter
-publisher.fetchAndExportUpdates(function() {
-    return [
+publisher.fetchAndExportUpdates(function(callback) {
+    callback([
         {
             "id": "1",
             "title": "Overspeed",
@@ -20,5 +20,5 @@ publisher.fetchAndExportUpdates(function() {
             "type": "TRAFFIC",
             "timestamp": "2018-04-26T03:59:21+00:00"
         }
-    ];
+    ]);
 });

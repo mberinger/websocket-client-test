@@ -50,10 +50,28 @@ module.exports = {
         });
     },
 
+    sanitiseUpdates: function(rawUpdates) {
+        for (var index in rawUpdates) {
+            var currentUpdate = rawUpdates[index];
+
+            // Sanitise..
+        }
+
+        return rawUpdates;
+    },
+
     fetchAndExportUpdates: function(fetchFunction) {
-        this.init();
-        var rawUpdates = fetchFunction();
-        var batchedUpdates = this.batchUpdates(rawUpdates);
-        this.exportUpdates(batchedUpdates);
+        var mainApp = this;
+
+        mainApp.init();
+        fetchFunction(function(rawUpdates) {
+            var sanitisedUpdates = mainApp.sanitiseUpdates(rawUpdates)
+            var batchedUpdates = mainApp.batchUpdates(sanitisedUpdates);
+
+            console.log("Sending updates..");
+            console.log(JSON.stringify(batchedUpdates));
+
+            mainApp.exportUpdates(batchedUpdates);
+        });
     }
 };
