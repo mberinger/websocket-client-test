@@ -65,13 +65,17 @@ module.exports = {
 
         mainApp.init();
         fetchFunction(function(rawUpdates) {
-            var sanitisedUpdates = mainApp.sanitiseUpdates(rawUpdates)
-            var batchedUpdates = mainApp.batchUpdates(sanitisedUpdates);
+            if (rawUpdates != null) {
+                var sanitisedUpdates = mainApp.sanitiseUpdates(rawUpdates)
+                var batchedUpdates = mainApp.batchUpdates(sanitisedUpdates);
 
-            console.log("Sending updates..");
-            console.log(JSON.stringify(batchedUpdates));
+                console.log("Sending updates..");
+                console.log(JSON.stringify(batchedUpdates));
 
-            mainApp.exportUpdates(batchedUpdates);
+                mainApp.exportUpdates(batchedUpdates);
+            } else {
+                console.log("Recieved no updates");
+            }
         });
     }
 };

@@ -14,7 +14,7 @@ var twitterPublisher = {
         this.twitter = new Twit(config.twitter);
     },
 
-    keyword: "NZTA",
+    keywords: "traffic",
 
     getTimeOneMinuteAgoUTC: function() {
         var momentUTC = moment.utc().subtract(1, "minutes");
@@ -32,17 +32,25 @@ var twitterPublisher = {
         app.twitter.get(
             'search/tweets',
             {
-                q: app.keyword + ' since:' + app.getTimeOneMinuteAgoUTC(),
+                q: app.keywords,
+                since: app.getTimeOneMinuteAgoUTC(),
+                lang: "en",
+                geocode: "36.8485 174.7633 100km",
                 count: 1
             },
             function(err, data, response) {
-                console.log("Recieved data:");
-                console.log(JSON.stringify(data));
+                if (err || !data.statuses || data.statuses.length < 1) {
+                    console.log("Did not recieve any data!");
+                    callback(null);
+                } else {
+                    console.log("Recieved data:");
+                    console.log(JSON.stringify(data));
 
-                var parsedTwitterResponse = app.parse(data);
-                console.log("Parsed to:");
-                console.log(JSON.stringify(parsedTwitterResponse));
-                callback(parsedTwitterResponse);
+                    var parsedTwitterResponse = app.parse(data);
+                    console.log("Parsed to:");
+                    console.log(JSON.stringify(parsedTwitterResponse));
+                    callback(parsedTwitterResponse);
+                }
             }
         );
     },
@@ -67,10 +75,7 @@ var twitterPublisher = {
     }
 };
 
-// Test
-twitterPublisher.fetchTwitterUpdates(function(){});
-
 // Call function with fetcher as parameter
-/*publisher.fetchAndExportUpdates(function(callback) {
+publisher.fetchAndExportUpdates(function(callback) {
     twitterPublisher.fetchTwitterUpdates(callback);
-});*/
+});
