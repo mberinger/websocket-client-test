@@ -14,11 +14,10 @@ var twitterPublisher = {
         this.twitter = new Twit(config.twitter);
     },
 
-    keywords: "traffic",
+    keywords: "EROADHackathon2018",
 
     getTimeOneMinuteAgoUTC: function() {
-        var momentUTC = moment.utc().subtract(1, "minutes");
-
+        var momentUTC = moment.utc().subtract(5, "minutes");
         return momentUTC.format('YYYY-MM-DD HH:ss');
     },
 
@@ -30,10 +29,10 @@ var twitterPublisher = {
 
         // Fetch tweets for configured params
         app.twitter.get(
-            'users/show',
+            'search/tweets',
             {
                 q: app.keywords,
-                since: app.getTimeOneMinuteAgoUTC(),
+                //since: app.getTimeOneMinuteAgoUTC(),
                 lang: "en",
                 //geocode: "-36.8485 174.7633 100km", // Auckland, NZ
                 count: 1
