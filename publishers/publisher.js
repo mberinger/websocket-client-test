@@ -1,33 +1,12 @@
 #!/usr/bin/node
 
 // Create app
-var app = {
+module.exports = {
     init: function() {
         // Initialise AWS - requires config in ~/.aws/credentials
         var AWS = require('aws-sdk');
         AWS.config.update({region: 'us-east-2'});
         this.ddb = new AWS.DynamoDB({apiVersion: '2012-10-08'});
-    },
-
-    fetchUpdates: function() {
-        // Declare update fetching logic here
-        // Should return array of objects similar to https://github.com/TedChenNZ/avocado-spread/blob/master/dev-api-server/controllers/data.json
-        return [
-            {
-                "id": "1",
-                "title": "Overspeed",
-                "content": "Jane is going too fast!",
-                "type": "OVERSPEED",
-                "timestamp": "2018-04-26T03:43:21+00:00"
-            },
-            {
-                "id": "2",
-                "title": "Traffic Alert",
-                "content": "CRASH occurred on SH1 (thanks, Gwyneth)",
-                "type": "TRAFFIC",
-                "timestamp": "2018-04-26T03:59:21+00:00"
-            }
-        ];
     },
 
     batchUpdates: function(rawUpdates) {
@@ -71,13 +50,10 @@ var app = {
         });
     },
 
-    fetchAndExportUpdates: function() {
-        app.init();
-        var updates = app.fetchUpdates();
-        var batchedUpdates = app.batchUpdates(updates);
-        app.exportUpdates(batchedUpdates);
+    fetchAndExportUpdates: function(fetchFunction) {
+        this.init();
+        var rawUpdates = fetchFunction();
+        var batchedUpdates = this.batchUpdates(rawUpdates);
+        this.exportUpdates(batchedUpdates);
     }
 };
-
-// Run
-app.fetchAndExportUpdates();

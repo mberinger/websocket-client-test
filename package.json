@@ -2,6 +2,7 @@
   "name": "my_package",
   "version": "1.0.0",
   "dependencies": {
-    "aws-sdk": "^2.229.1"
+    "aws-sdk": "^2.229.1",
+    "twit": "^2.2.9"
   }
 }
