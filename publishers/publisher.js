@@ -25,6 +25,7 @@ module.exports = {
                     Item: {
                         "id" : { N: rawUpdates[index].id },
                         "title": { S: rawUpdates[index].title },
+                        "subtitle": { S: rawUpdates[index].subtitle },
                         "content": { S: rawUpdates[index].content },
                         "type": { S: rawUpdates[index].type },
                         "timestamp": { S: rawUpdates[index].timestamp }

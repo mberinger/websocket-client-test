@@ -67,7 +67,8 @@ var twitterPublisher = {
             var parsedUpdate = {};
 
             parsedUpdate.id = currentUpdate.id.toString();
-            parsedUpdate.title = currentUpdate.user.name + " (@" + currentUpdate.user.screen_name + ")";
+            parsedUpdate.title = currentUpdate.user.name;
+            parsedUpdate.subtitle = "@" + currentUpdate.user.screen_name;
             parsedUpdate.content = currentUpdate.text;
             parsedUpdate.type = "TWITTER";
             parsedUpdate.timestamp = moment(currentUpdate.created_at).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');;
