@@ -1,7 +1,9 @@
 #!/usr/bin/node
-var publisher = require('./publisher.js');
 var Twit = require('twit');
+var moment = require('moment');
+
 var config = require('./config.js');
+var publisher = require('./publisher.js');
 
 var twitterPublisher = {
 
@@ -12,9 +14,12 @@ var twitterPublisher = {
         this.twitter = new Twit(config.twitter);
     },
 
-    queryParams: {
-        q: 'NZTA',
-        count: 1
+    keyword: "NZTA",
+
+    getTimeOneMinuteAgoUTC: function() {
+        var momentUTC = moment.utc().subtract(1, "minutes");
+
+        return momentUTC.format('YYYY-MM-DD HH:ss');
     },
 
     fetchTwitterUpdates: function(callback) {
@@ -24,9 +29,12 @@ var twitterPublisher = {
         app.init();
 
         // Fetch tweets for configured params
-        this.twitter.get(
+        app.twitter.get(
             'search/tweets',
-            this.queryParams,
+            {
+                q: app.keyword + ' since:' + app.getTimeOneMinuteAgoUTC(),
+                count: 1
+            },
             function(err, data, response) {
                 console.log("Recieved data:");
                 console.log(JSON.stringify(data));
@@ -59,7 +67,10 @@ var twitterPublisher = {
     }
 };
 
+// Test
+twitterPublisher.fetchTwitterUpdates(function(){});
+
 // Call function with fetcher as parameter
-publisher.fetchAndExportUpdates(function(callback) {
+/*publisher.fetchAndExportUpdates(function(callback) {
     twitterPublisher.fetchTwitterUpdates(callback);
-});
+});*/
