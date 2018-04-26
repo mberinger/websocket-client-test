@@ -14,7 +14,7 @@ var twitterPublisher = {
         this.twitter = new Twit(config.twitter);
     },
 
-    keywords: "EROADHackathon2018",
+    keywords: "eroad",
 
     getTimeOneMinuteAgoUTC: function() {
         var momentUTC = moment.utc().subtract(5, "minutes");
@@ -35,7 +35,7 @@ var twitterPublisher = {
                 //since: app.getTimeOneMinuteAgoUTC(),
                 lang: "en",
                 //geocode: "-36.8485 174.7633 100km", // Auckland, NZ
-                count: 1
+                count: 10
             },
             function(err, data, response) {
                 if (err || !data.statuses || data.statuses.length < 1) {
@@ -70,7 +70,7 @@ var twitterPublisher = {
             parsedUpdate.title = currentUpdate.user.name + " (@" + currentUpdate.user.screen_name + ")";
             parsedUpdate.content = currentUpdate.text;
             parsedUpdate.type = "TWITTER";
-            parsedUpdate.timestamp = currentUpdate.created_at;
+            parsedUpdate.timestamp = moment(currentUpdate.created_at).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');;
 
             parsedUpdates.push(parsedUpdate)
         }
