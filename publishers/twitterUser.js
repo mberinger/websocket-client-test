@@ -9,18 +9,13 @@ var twitterPublisher = {
 
     type: "TWITTER",
 
+    screenName: "NZTAUpdates",
+
     init: function() {
         // Create Twit config
         this.twitter = new Twit(config.twitter);
     },
 
-    keywords: "traffic",
-
-    getTimeOneMinuteAgoUTC: function() {
-        var momentUTC = moment.utc().subtract(1, "minutes");
-
-        return momentUTC.format('YYYY-MM-DD HH:ss');
-    },
 
     fetchTwitterUpdates: function(callback) {
         var app = this;
@@ -32,14 +27,10 @@ var twitterPublisher = {
         app.twitter.get(
             'users/show',
             {
-                q: app.keywords,
-                since: app.getTimeOneMinuteAgoUTC(),
-                lang: "en",
-                //geocode: "-36.8485 174.7633 100km", // Auckland, NZ
-                count: 1
+                screen_name: app.screenName
             },
             function(err, data, response) {
-                if (err || !data.statuses || data.statuses.length < 1) {
+                if (err || !data.status) {
                     if (err) {
                         console.log(JSON.stringify(err));
                     } else {
@@ -62,19 +53,16 @@ var twitterPublisher = {
 
     parse: function(data) {
         parsedUpdates = [];
+        var parsedUpdate = {};
+        var currentUpdate = data.status;
 
-        for (var index in data.statuses) {
-            var currentUpdate = data.statuses[index];
-            var parsedUpdate = {};
+        parsedUpdate.id = currentUpdate.id.toString();
+        parsedUpdate.title = data.name + " (@" + data.screen_name + ")";
+        parsedUpdate.content = currentUpdate.text;
+        parsedUpdate.type = "TWITTER";
+        parsedUpdate.timestamp = currentUpdate.created_at;
 
-            parsedUpdate.id = currentUpdate.id.toString();
-            parsedUpdate.title = currentUpdate.user.name + " (@" + currentUpdate.user.screen_name + ")";
-            parsedUpdate.content = currentUpdate.text;
-            parsedUpdate.type = "TWITTER";
-            parsedUpdate.timestamp = currentUpdate.created_at;
-
-            parsedUpdates.push(parsedUpdate)
-        }
+        parsedUpdates.push(parsedUpdate)
 
         return parsedUpdates;
     }
