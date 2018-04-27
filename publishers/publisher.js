@@ -26,6 +26,7 @@ module.exports = {
                 "content": { S: rawUpdates[index].content },
                 "type": { S: rawUpdates[index].type },
                 "timestamp": { S: rawUpdates[index].timestamp }
+                "severity": { S: rawUpdates[index].severity }
             };
 
             // Optional parameters
