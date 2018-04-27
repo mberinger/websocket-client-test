@@ -20,17 +20,25 @@ module.exports = {
 
         // Iterate over messages and put into correct format
         for (var index in rawUpdates) {
+            var newUpdate = {
+                "id" : { N: rawUpdates[index].id },
+                "title": { S: rawUpdates[index].title },
+                "content": { S: rawUpdates[index].content },
+                "type": { S: rawUpdates[index].type },
+                "timestamp": { S: rawUpdates[index].timestamp }
+            };
+
+            // Optional parameters
+            if (rawUpdates[index].subtitle) {
+                newUpdate["subtitle"] = { S: rawUpdates[index].subtitle };
+            }
+            if (rawUpdates[index].url) {
+                newUpdate["url"] = { S: rawUpdates[index].url };
+            }
+
             tableUpdates.push({
                 PutRequest: {
-                    Item: {
-                        "id" : { N: rawUpdates[index].id },
-                        "title": { S: rawUpdates[index].title },
-                        "subtitle": { S: rawUpdates[index].subtitle },
-                        "content": { S: rawUpdates[index].content },
-                        "type": { S: rawUpdates[index].type },
-                        "timestamp": { S: rawUpdates[index].timestamp },
-                        "url": { S: rawUpdates[index].url }
-                    }
+                    Item: newUpdate
                 }
             });
         }
