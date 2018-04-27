@@ -71,7 +71,8 @@ var twitterPublisher = {
             parsedUpdate.subtitle = "@" + currentUpdate.user.screen_name;
             parsedUpdate.content = currentUpdate.text;
             parsedUpdate.type = "TWITTER";
-            parsedUpdate.timestamp = moment(currentUpdate.created_at).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');;
+            parsedUpdate.timestamp = moment(currentUpdate.created_at).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
+            parsedUpdate.url = "https://twitter.com/" + currentUpdate.user.screen_name + "/status/" + currentUpdate.id_str;
 
             parsedUpdates.push(parsedUpdate)
         }
