@@ -1,8 +1,6 @@
 #!/usr/bin/node
 var publisher = require('./publisher.js');
 
-// Set up publisher here
-
 // Call function with fetcher as parameter
 publisher.fetchAndExportUpdates(function(callback) {
     callback([
