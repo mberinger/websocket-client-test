@@ -63,7 +63,7 @@ var twitterPublisher = {
         parsedUpdate.type = "TWITTER";
         parsedUpdate.timestamp = moment(currentUpdate.created_at).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
         parsedUpdate.url = "https://twitter.com/" + data.screen_name + "/status/" + currentUpdate.id_str;
-        parsedUpdate.severity = 3;
+        parsedUpdate.severity = "3";
 
         parsedUpdates.push(parsedUpdate)
 
