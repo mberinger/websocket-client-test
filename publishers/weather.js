@@ -57,8 +57,7 @@ var weatherPublisher = {
         parsedUpdate.title = "Forecast in " + this.city + " is: " + weather.main;
         parsedUpdate.content = "It's currently " + jsonData.main.temp + " degrees in " + this.city + " and the weather is described as: " + weather.description;
         parsedUpdate.type = this.type;
-        //parsedUpdate.timestamp = moment(jsonData.dt).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
-        parsedUpdate.timestamp = moment().utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
+        parsedUpdate.timestamp = moment.unix(jsonData.dt).utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
 
         parsedUpdates.push(parsedUpdate);
 
