@@ -5,12 +5,15 @@ var moment = require('moment');
 var getCurrentUTCTime = function() {
     return moment().utc().format('YYYY-MM-DDTHH:mm:ss+00:00');
 }
+var getRandomId = function() {
+    return (Math.floor(Math.random() * (1000000 - 5000 + 1)) + 5000).toString();
+}
 
 // Samples
 var samples = {
     "ENFORCEMENT": [
         {
-            "id": "951",
+            "id": getRandomId(),
             "title": "Roadside Inspection",
             "content": "Pete S. pulled over",
             "type": "ENFORCEMENT",
@@ -18,7 +21,7 @@ var samples = {
             "severity": "3"
         },
         {
-            "id": "952",
+            "id": getRandomId(),
             "title": "Roadside Inspection",
             "content": "John C. inspection complete",
             "type": "ENFORCEMENT",
@@ -26,7 +29,7 @@ var samples = {
             "severity": "2"
         },
         {
-            "id": "953",
+            "id": getRandomId(),
             "title": "Speeding Ticket",
             "content": "Mike A. speeding ticket",
             "type": "ENFORCEMENT",
@@ -36,7 +39,7 @@ var samples = {
     ],
     "GEOFENCE":  [
         {
-            "id": "961",
+            "id": getRandomId(),
             "title": "Arrived at Depot",
             "content": "Mike A. arrived at Depot",
             "type": "GEOFENCE",
@@ -44,7 +47,7 @@ var samples = {
             "severity": "1"
         },
         {
-            "id": "962",
+            "id": getRandomId(),
             "title": "Left Depot",
             "content": "Mike A. left the Depot",
             "type": "GEOFENCE",
@@ -52,7 +55,7 @@ var samples = {
             "severity": "1"
         },
         {
-            "id": "963",
+            "id": getRandomId(),
             "title": "Site Checkin",
             "content": "John B. arrived on site",
             "type": "GEOFENCE",
@@ -60,7 +63,7 @@ var samples = {
             "severity": "1"
         },
         {
-            "id": "964",
+            "id": getRandomId(),
             "title": "Site Checkout",
             "content": "John B. left the site",
             "type": "GEOFENCE",
@@ -71,7 +74,7 @@ var samples = {
     ],
     "TRAFFIC":  [
         {
-            "id": "971",
+            "id": getRandomId(),
             "title": "Traffic Update",
             "content": "Harbour Bridge closed",
             "type": "TRAFFIC",
@@ -79,7 +82,7 @@ var samples = {
             "severity": "4"
         },
         {
-            "id": "972",
+            "id": getRandomId(),
             "title": "Traffic Update",
             "content": "Harbour Bridge Reopened",
             "type": "TRAFFIC",
@@ -87,7 +90,7 @@ var samples = {
             "severity": "2"
         },
         {
-            "id": "973",
+            "id": getRandomId(),
             "title": "Traffic Update",
             "content": "Traffic flowing in your area",
             "type": "TRAFFIC",
@@ -95,7 +98,7 @@ var samples = {
             "severity": "1"
         },
         {
-            "id": "974",
+            "id": getRandomId(),
             "title": "Traffic Update",
             "content": "SH1 Closed for repairs after 10PM",
             "type": "TRAFFIC",
@@ -105,7 +108,7 @@ var samples = {
     ],
     "OVERSPEED":  [
         {
-            "id": "981",
+            "id": getRandomId(),
             "title": "Overspeed Alert",
             "content": "Mike B. 110km/h in 50km/h",
             "type": "OVERSPEED",
@@ -113,7 +116,7 @@ var samples = {
             "severity": "4"
         },
         {
-            "id": "982",
+            "id": getRandomId(),
             "title": "Overspeed Alert",
             "content": "John C. 55km/h in 50km/h",
             "type": "OVERSPEED",
@@ -121,7 +124,7 @@ var samples = {
             "severity": "2"
         },
         {
-            "id": "983",
+            "id": getRandomId(),
             "title": "Overspeed Alert",
             "content": "Pete A. 60km/h in 50km/h",
             "type": "OVERSPEED",
